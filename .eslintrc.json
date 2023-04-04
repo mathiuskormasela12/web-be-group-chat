@@ -13,6 +13,8 @@
 	},
 	"rules": {
 		"@typescript-eslint/no-var-requires": "off",
-		"no-tabs": "off"
+		"no-tabs": "off",
+		"@typescript-eslint/no-misused-promises": "off",
+		"@typescript-eslint/return-await": "off"
 	}
 }
