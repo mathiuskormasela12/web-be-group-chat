@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("SERVICE_DATABASE_URL")
+}
+
+model Users {
+  id String @db.Uuid @id @default(uuid())
+  username String @db.VarChar(255)
+  email String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  groups UsersGroups[]
+
+  chats Chats[]
+}
+
+model Groups {
+  id String @db.Uuid @id @default(uuid())
+  groupName String @db.VarChar(100)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users UsersGroups[]
+  chats Chats[]
+}
+
+model UsersGroups {
+  id String @db.Uuid @id @default(uuid())
+
+  user Users @relation(fields: [userId], references: [id])
+  userId String @db.Uuid
+
+  group Groups @relation(fields: [groupId], references: [id])
+  groupId String @db.Uuid
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chats {
+  id String @id @default(uuid())
+
+  user Users @relation(fields: [userId], references: [id])
+  userId String @db.Uuid
+
+  group Groups @relation(fields: [groupId], references: [id])
+  groupId String @db.Uuid
+
+  message String @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

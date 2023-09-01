@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  group-chat-database: 
+    container_name: group-chat-database
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: web-be-group-chat
+    volumes:
+      - type: volume
+        source: group-chat-database-volume
+        target: /var/lib/postgresql
+    ports:
+      - protocol: tcp
+        published: 9000
+        target: 5432
+    networks:
+      - group-chat-network
+
+volumes:
+  group-chat-database-volume:
+    name: group-chat-database-volume
+
+networks:
+  group-chat-network:
+    name: group-chat-network
+    driver: bridge
