@@ -6,8 +6,6 @@ module.exports = {
   maxConcurrency: 10,
   collectCoverage: true,
   collectCoverageFrom: [
-    '**/*.ts',
-    '!src/main.ts',
-    '!coverage'
+    '**/*.service.ts'
   ]
 }

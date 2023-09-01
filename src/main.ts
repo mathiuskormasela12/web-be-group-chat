@@ -3,4 +3,4 @@
 import { Server } from './core'
 
 const app = new Server()
-console.log(app.send())
+app.listen()

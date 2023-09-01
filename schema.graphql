@@ -1,0 +1,41 @@
+scalar Date
+
+type Query {
+  users: [User!]
+  groups: [Group!]
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+  createdAt: Date!
+  updatedAt: Date!
+  groups: [Group!]
+}
+
+type Group {
+  id: ID!
+  groupName: String!
+  createdAt: Date!
+  updatedAt: Date!
+  users: [User!]
+}
+
+type UserGroup {
+  id: ID!
+  userId: ID!
+  groupId: ID!
+  user: User
+  group: Group
+}
+
+type Chat {
+  id: ID!
+  userId: ID!
+  groupId: ID!
+  message: String!
+  createdAt: Date!
+  updatedAt: Date!
+}
