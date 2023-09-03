@@ -6,6 +6,7 @@
   "scripts": {
     "start": "concurrently \"nodemon src/main.ts\" \"graphql-codegen --config codegen.json --watch\"",
     "start:prod": "node dist/main.js",
+    "start:migrate:prod": "npx prisma migrate deploy && npm run start:prod",
     "build": "tsc -p tsconfig.build.json",
     "test": "jest",
     "codegen": "graphql-codegen --config codegen.json"

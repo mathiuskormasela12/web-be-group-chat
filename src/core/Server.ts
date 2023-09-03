@@ -53,7 +53,7 @@ export class Server {
     // Append Apollo Server to Express
     this.app.use('/graphql', apolloMiddleware(this.apolloServer, { context: httpContext }))
 
-    this.app.listen(Config.PORT, () => {
+    this.app.listen(Config.PORT, '0.0.0.0', () => {
       console.log('The server is being run at', Config.APP_URL)
       console.log('The server is being run at', Config.APP_URL.concat('/graphql'))
     })
