@@ -10,7 +10,7 @@ services:
     volumes:
       - type: volume
         source: group-chat-database-volume
-        target: /var/lib/postgresql
+        target: /var/lib/postgresql/data
     ports:
       - protocol: tcp
         published: 9000
