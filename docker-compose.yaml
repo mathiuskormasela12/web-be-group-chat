@@ -17,6 +17,47 @@ services:
         target: 5432
     networks:
       - group-chat-network
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: "500M"
+        limits:
+          cpus: "1"
+          memory: "1000M"
+
+  group-chat-api:
+    container_name: group-chat-api
+    image: mathius12/group-chat:1.0.0
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        PORT: 8080
+    networks:
+      - group-chat-network
+    depends_on:
+      - group-chat-database
+    ports:
+      - protocol: tcp
+        published: 8080
+        target: 8080
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: "500M"
+        limits:
+          cpus: "1"
+          memory: "1000M"
+    environment:
+      SERVICE_APP_URL: http://localhost:8080
+      SERVICE_WEB_CLIENTS: http://localhost:8080
+      SERVICE_DATABASE_URL: postgresql://root:root@group-chat-database:5432/web-be-group-chat?schema=public
+      JWT_ACCESS_TOKEN_KEY: secret
+      JWT_ACCESS_TOKEN_EXPIRES_IN: 5m
+      JWT_REFRESH_TOKEN_KEY: secret
+      JWT_REFRESH_TOKEN_EXPIRES_IN: 5m
 
 volumes:
   group-chat-database-volume:
